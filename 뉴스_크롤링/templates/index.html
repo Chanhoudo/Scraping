@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>딥페이크 뉴스 검색 결과</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>딥페이크 뉴스 검색 결과</h1>
+    <div id="news-container">
+        {% for news in news_data %}
+        <div class="news-item">
+            <a href="{{ news.link }}" class="news-title" target="_blank">{{ news.title }}</a>
+            <p>{{ news.press }} - {{ news.date }}</p>
+            <p>{{ news.description }}</p>
+            {% if news.image_path and news.image_path != "이미지 없음" %}
+                <img src="{{ url_for('static', filename='images/' + news.image_path.strip()) }}" alt="{{ news.title }}">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default_image.jpg') }}" alt="이미지 없음">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
